@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_practice_ui/pages/plant_app/constants.dart';
 
-import 'components/home_screen.dart';
+import 'pages/home_screen.dart';
 
 class MyPlantApp extends StatelessWidget {
   @override
