@@ -23,7 +23,7 @@ class MyMainPage extends StatelessWidget {
         _title = 'Plant app';
         break;
       case 1:
-        _title = 'Buy Stuff';
+        _title = 'Covid app';
         break;
       case 2:
         _title = 'Choose Your Plan';
