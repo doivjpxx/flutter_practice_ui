@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice_ui/pages/bagshop_app/bagshop_app.dart';
 import 'package:flutter_practice_ui/pages/covid_app/main_page.dart';
 import 'package:flutter_practice_ui/main_page.dart';
 import 'package:flutter_practice_ui/pages/plant_app/plant_app.dart';
@@ -11,7 +12,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(title: 'Practise UI', initialRoute: '/', routes: {
       '/': (_) => MyMainPage(),
       '/first': (_) => MyPlantApp(),
-      '/second': (_) => MyCovidAppPage()
+      '/second': (_) => MyCovidAppPage(),
+      '/third': (_) => BagShopApp()
     });
   }
 }

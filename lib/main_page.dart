@@ -26,7 +26,7 @@ class MyMainPage extends StatelessWidget {
         _title = 'Covid app';
         break;
       case 2:
-        _title = 'Choose Your Plan';
+        _title = 'Bag shop app';
         break;
       case 3:
         _title = 'Detail Product';
