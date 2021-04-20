@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_practice_ui/pages/bagshop_app/components/categories.dart';
 import 'package:flutter_practice_ui/pages/bagshop_app/constants.dart';
 import 'package:flutter_practice_ui/pages/bagshop_app/models/product.dart';
+import 'package:flutter_practice_ui/pages/bagshop_app/pages/detail_page.dart';
 
 class CartBody extends StatelessWidget {
   @override
@@ -32,7 +33,13 @@ class CartBody extends StatelessWidget {
                     crossAxisSpacing: kDefaultPaddin),
                 itemBuilder: (context, index) => ItemCard(
                       product: products[index],
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    DetailBagPage(product: products[index])));
+                      },
                     )),
           ),
         )
