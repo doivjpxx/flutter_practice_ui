@@ -29,28 +29,7 @@ class MyMainPage extends StatelessWidget {
         _title = 'Bag shop app';
         break;
       case 3:
-        _title = 'Detail Product';
-        break;
-      case 4:
-        _title = 'Main Page';
-        break;
-      case 5:
-        _title = 'Confirm Order';
-        break;
-      case 6:
-        _title = 'Cart 2';
-        break;
-      case 7:
-        _title = 'Main Page 2';
-        break;
-      case 8:
-        _title = 'Shopping';
-        break;
-      case 9:
-        _title = 'Detail 2';
-        break;
-      case 10:
-        _title = 'Detail 3';
+        _title = 'Furniture app';
         break;
       default:
         break;
@@ -71,27 +50,6 @@ class MyMainPage extends StatelessWidget {
         break;
       case 3:
         Navigator.pushNamed(context, '/four');
-        break;
-      case 4:
-        Navigator.pushNamed(context, '/five');
-        break;
-      case 5:
-        Navigator.pushNamed(context, '/six');
-        break;
-      case 6:
-        Navigator.pushNamed(context, '/seven');
-        break;
-      case 7:
-        Navigator.pushNamed(context, '/eight');
-        break;
-      case 8:
-        Navigator.pushNamed(context, '/nine');
-        break;
-      case 9:
-        Navigator.pushNamed(context, '/ten');
-        break;
-      case 10:
-        Navigator.pushNamed(context, '/eleven');
         break;
       default:
         break;
