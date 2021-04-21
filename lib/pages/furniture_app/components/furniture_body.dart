@@ -4,6 +4,7 @@ import 'package:flutter_practice_ui/pages/furniture_app/components/product_card.
 import 'package:flutter_practice_ui/pages/furniture_app/components/title_text.dart';
 import 'package:flutter_practice_ui/pages/furniture_app/models/categories.dart';
 import 'package:flutter_practice_ui/pages/furniture_app/models/product.dart';
+import 'package:flutter_practice_ui/pages/furniture_app/screens/detail_screen.dart';
 import 'package:flutter_practice_ui/pages/furniture_app/services/catogory.dart';
 import 'package:flutter_practice_ui/pages/furniture_app/services/product.dart';
 
@@ -74,6 +75,13 @@ class RecommendedProducts extends StatelessWidget {
               crossAxisSpacing: 20),
           itemBuilder: (context, index) => ProductCard(
                 product: products[index],
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              DetailScreen(product: products[index])));
+                },
               )),
     );
   }
