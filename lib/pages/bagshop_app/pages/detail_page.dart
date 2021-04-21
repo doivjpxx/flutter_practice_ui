@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice_ui/pages/bagshop_app/components/utils.dart';
 import 'package:flutter_practice_ui/pages/bagshop_app/constants.dart';
 import 'package:flutter_practice_ui/pages/bagshop_app/models/product.dart';
 import 'package:flutter_svg/svg.dart';
@@ -34,34 +35,39 @@ class DetailBagPage extends StatelessWidget {
                             topRight: Radius.circular(24))),
                     child: Column(
                       children: <Widget>[
+                        ColorAndSize(product: product),
+                        SizedBox(
+                          height: kDefaultPaddin / 2,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: kDefaultPaddin),
+                          child: Text(
+                            product.description,
+                            style: TextStyle(height: 1.5),
+                          ),
+                        ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text("Color"),
-                                Row(
-                                  children: <Widget>[
-                                    ColorDot(
-                                      color: Color(0xFF356C95),
-                                      isSelected: true,
-                                    ),
-                                    ColorDot(
-                                      color: Color(0xFFF8C078),
-                                    ),
-                                    ColorDot(
-                                      color: Color(0xFFA29B9B),
-                                    ),
-                                  ],
-                                )
-                              ],
+                            CartCounter(),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              height: 32,
+                              width: 32,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFFF6464),
+                                shape: BoxShape.circle,
+                              ),
+                              child: SvgPicture.asset("assets/icons/heart.svg"),
                             )
                           ],
-                        )
+                        ),
+                        AddToCart(product: product)
                       ],
                     ),
                   ),
-                  ProductTitleWithImage(product: product)
+                  ProductTitleWithImage(product: product),
                 ],
               ),
             )
@@ -98,34 +104,8 @@ class DetailBagPage extends StatelessWidget {
   }
 }
 
-class ColorDot extends StatelessWidget {
-  const ColorDot({Key key, this.color, this.isSelected = false})
-      : super(key: key);
-
-  final bool isSelected;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-          top: kDefaultPaddin / 4, right: kDefaultPaddin / 2),
-      padding: const EdgeInsets.all(2.5),
-      height: 24,
-      width: 24,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: isSelected ? color : Colors.transparent),
-      ),
-      child: DecoratedBox(
-        decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-      ),
-    );
-  }
-}
-
-class ProductTitleWithImage extends StatelessWidget {
-  const ProductTitleWithImage({
+class AddToCart extends StatelessWidget {
+  const AddToCart({
     Key key,
     @required this.product,
   }) : super(key: key);
@@ -135,42 +115,95 @@ class ProductTitleWithImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin),
+      child: Row(
         children: <Widget>[
-          Text(
-            "Aristocratic Hand Bag",
-            style: TextStyle(color: Colors.white),
+          Container(
+            margin: const EdgeInsets.only(right: kDefaultPaddin),
+            height: 50,
+            width: 58,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: product.color)),
+            child: IconButton(
+              icon: SvgPicture.asset(
+                "assets/icons/add_to_cart.svg",
+                color: product.color,
+              ),
+              onPressed: () {},
+            ),
           ),
-          Text(
-            product.title,
-            style: Theme.of(context)
-                .textTheme
-                .headline4
-                .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: kDefaultPaddin,
-          ),
-          Row(
-            children: <Widget>[
-              RichText(
-                  text: TextSpan(children: [
-                TextSpan(text: "Price"),
-                TextSpan(
-                    text: "\$${product.price}",
-                    style: Theme.of(context).textTheme.headline4.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold))
-              ])),
-              Expanded(
-                  child: Image.asset(
-                product.image,
-                fit: BoxFit.fill,
-              ))
-            ],
+          Expanded(
+            child: SizedBox(
+              height: 50,
+              child: FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18)),
+                onPressed: () {},
+                color: product.color,
+                child: Text(
+                  "Buy Now".toUpperCase(),
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+            ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class CartCounter extends StatefulWidget {
+  @override
+  _CartCounterState createState() => _CartCounterState();
+}
+
+class _CartCounterState extends State<CartCounter> {
+  int numOfItems = 1;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        buildOutlineButton(
+            icon: Icons.remove,
+            onPressed: () {
+              setState(() {
+                if (numOfItems > 1) {
+                  numOfItems -= 1;
+                }
+              });
+            }),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin / 2),
+          child: Text(
+            numOfItems.toString(),
+            style: Theme.of(context).textTheme.headline6,
+          ),
+        ),
+        buildOutlineButton(
+            icon: Icons.add,
+            onPressed: () {
+              setState(() {
+                numOfItems += 1;
+              });
+            }),
+      ],
+    );
+  }
+
+  SizedBox buildOutlineButton({IconData icon, Function onPressed}) {
+    return SizedBox(
+      width: 40,
+      height: 32,
+      child: OutlineButton(
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+        onPressed: onPressed,
+        child: Icon(icon),
       ),
     );
   }
